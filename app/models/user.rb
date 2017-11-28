@@ -1,11 +1,17 @@
 class User < ApplicationRecord
   has_many :questions
   has_many :answers
-  
+
   attr_accessor :password
   validates_confirmation_of :password
   validates :email, :presence => true, :uniqueness => true
   before_save :encrypt_password
+  before_save :downcase_fields
+
+  def downcase_fields
+    self.name.downcase
+    self.email.downcase
+  end
 
   def encrypt_password
     self.password_salt = BCrypt::Engine.generate_salt
