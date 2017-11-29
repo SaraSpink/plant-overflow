@@ -8,14 +8,14 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  # def authorize_admin
-  #   if current_user.admin === true
-  #     redirect_to questions_path
-  #   else
-  #     flash[:alert] = "Only an admin can visit this page."
-  #     redirect_to '/'
-  #   end
-  # end
+  def authorize_admin
+    if current_user.admin === true
+      redirect_to questions_path
+    else
+      flash[:alert] = "Only an admin can visit this page."
+      redirect_to '/'
+    end
+  end
 
   def authorize
     if !current_user

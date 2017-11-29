@@ -1,5 +1,5 @@
 class QuestionsController < ApplicationController
-  before_action :authorize, only: [:index]
+  before_action :authorize_admin, only: [:index]
   def index
   end
 
