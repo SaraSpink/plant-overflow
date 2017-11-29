@@ -6,21 +6,16 @@ class User < ApplicationRecord
   validates_confirmation_of :password
   validates :email, :presence => true, :uniqueness => true
   before_save :encrypt_password
-  before_save :downcase_fields
 
-  def downcase_fields
-    self.name.downcase
-    self.email.downcase
-  end
 
   def encrypt_password
     self.password_salt = BCrypt::Engine.generate_salt
     self.password_hash = BCrypt::Engine.hash_secret(password,password_salt)
   end
 
-  def self.authenticate(email, password)
+  def self.authenticate(email, password, admin)
     user = User.find_by "email = ?", email
-    if user && user.password_hash == BCrypt::Engine.hash_secret(password, user.password_salt)
+    if user && user.password_hash == BCrypt::Engine.hash_secret(password, user.password_salt) 
       user
     else
       nil

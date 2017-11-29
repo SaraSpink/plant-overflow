@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   root :to => 'users#new'
-  resources :questions
+  resources :questions do
+    resources :answers, :only => :new
+  end
 
   get '/signup' => 'users#new'
   post '/users' => 'users#create'

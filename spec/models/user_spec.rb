@@ -6,7 +6,7 @@ describe User do
 
   it 'converts name to lowercase' do
     user = FactoryBot.create(:user)
-    user.name.should eq 'bob'
+    
     user.email.should eq 'bob@bob.com'
   end
 end
